@@ -1,375 +1,454 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>수비학 애정운 분석기</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Noto Sans KR', sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>두 사람의 수비학 애정운/궁합 분석</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
 
-        body {
-            background: #fff3f6;
-            padding: 20px;
-            line-height: 1.6;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
+    body {
+      background: #fff3f6;
+      padding: 20px;
+      line-height: 1.6;
+    }
 
-        h1 {
-            text-align: center;
-            color: #e84393;
-            margin-bottom: 30px;
-        }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
 
-        .input-section {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+    h1 {
+      text-align: center;
+      color: #e84393;
+      margin-bottom: 30px;
+    }
 
-        input {
-            width: 80%;
-            max-width: 400px;
-            padding: 15px;
-            font-size: 16px;
-            border: 2px solid #ffc9d5;
-            border-radius: 10px;
-            outline: none;
-        }
+    .input-section {
+      text-align: center;
+      margin-bottom: 30px;
+    }
 
-        input:focus {
-            border-color: #e84393;
-        }
+    input {
+      width: 80%;
+      max-width: 400px;
+      padding: 15px;
+      font-size: 16px;
+      border: 2px solid #ffc9d5;
+      border-radius: 10px;
+      outline: none;
+      margin: 5px 0;
+    }
 
-        button {
-            display: block;
-            width: 200px;
-            margin: 20px auto;
-            padding: 15px;
-            background: #e84393;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: 0.3s;
-        }
+    input:focus {
+      border-color: #e84393;
+    }
 
-        button:hover {
-            background: #d63384;
-            transform: translateY(-2px);
-        }
+    button {
+      display: block;
+      width: 200px;
+      margin: 20px auto;
+      padding: 15px;
+      background: #e84393;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
 
-        .result {
-            display: none;
-            background: #fff8fa;
-            padding: 25px;
-            border-radius: 10px;
-            margin-top: 30px;
-        }
+    button:hover {
+      background: #d63384;
+      transform: translateY(-2px);
+    }
 
-        .love-score {
-            text-align: center;
-            font-size: 24px;
-            margin: 20px 0;
-            color: #e84393;
-        }
+    .result {
+      display: none;
+      background: #fff8fa;
+      padding: 25px;
+      border-radius: 10px;
+      margin-top: 30px;
+    }
 
-        .advice {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
+    .love-score, .compatibility-score {
+      text-align: center;
+      font-size: 22px;
+      margin: 20px 0;
+      color: #e84393;
+    }
 
-        .highlight {
-            color: #e84393;
-            font-weight: bold;
-        }
-    </style>
+    .analysis-box {
+      background: #ffffff;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .analysis-box h2 {
+      color: #e84393;
+      margin-bottom: 10px;
+    }
+
+    .highlight {
+      color: #e84393;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>💘 수비학 애정운 분석기 💘</h1>
-        
-        <div class="input-section">
-            <input type="text" id="userName" placeholder="이름을 입력해 주세요">
-            <button onclick="analyzeLoveFortune()">애정운 분석하기</button>
-        </div>
+  <div class="container">
+    <h1>💘 두 사람의 수비학 애정운 & 궁합 분석 💘</h1>
 
-        <div id="result" class="result">
-            <div id="analysis"></div>
-            <div class="love-score">
-                애정운 점수: <span id="score"></span>점
-            </div>
-            <div class="advice" id="advice"></div>
-        </div>
+    <div class="input-section">
+      <div>
+        <input type="text" id="userName1" placeholder="첫 번째 이름" />
+      </div>
+      <div>
+        <input type="text" id="userName2" placeholder="두 번째 이름" />
+      </div>
+      <button onclick="analyzeLoveFortune()">궁합 분석하기</button>
     </div>
 
-    <script>
-      // "이름 → 숫자" 매핑 데이터
-      const nameToNumber = {
-        // 2번 (여사제)
-        '민': 2, '임': 2, '노': 2, '모': 2, '삼': 2, '묵': 2,
-        '문': 2, '미': 2, '누': 2, '흠': 2, '움': 2, '점': 2,
-        '무': 2, '겸': 2, '림': 2, '매': 2, '맹': 2,
-        '나': 2, '남': 2, '마': 2, '명': 2, '목': 2,
+    <div id="result" class="result">
+      <!-- 첫 번째 사람 결과 -->
+      <div id="analysis1" class="analysis-box"></div>
+      <!-- 두 번째 사람 결과 -->
+      <div id="analysis2" class="analysis-box"></div>
+      <!-- 궁합 점수 -->
+      <div class="compatibility-score">
+        두 분의 궁합 점수: <span id="compatibilityScore"></span>점
+      </div>
+    </div>
+  </div>
 
-        // 3번 (여황제)
-        '김': 3, '금': 3, '막': 3, '봄': 3, '내': 3,
+  <script>
+    // "이름 → 숫자" 매핑 데이터
+    const nameToNumber = {
+      // 2번 (여사제)
+      '민': 2, '임': 2, '노': 2, '모': 2, '삼': 2, '묵': 2,
+      '문': 2, '미': 2, '누': 2, '흠': 2, '움': 2, '점': 2,
+      '무': 2, '겸': 2, '림': 2, '매': 2, '맹': 2,
+      '나': 2, '남': 2, '마': 2, '명': 2, '목': 2,
 
-        // 4번 (황제)
-        '석': 4, '로': 4, '학': 4, '슬': 4,
-        '라': 4, '종': 4, '루': 4, '일': 4,
-        '식': 4, '래': 4, '례': 4, '록': 4,
-        '소': 4, '리': 4, '말': 4, '란': 4,
-        '숙': 4, '근': 4, '솔': 4, '순': 4,
+      // 3번 (여황제)
+      '김': 3, '금': 3, '막': 3, '봄': 3, '내': 3,
 
-        // 5번 (교황)
-        '태': 5, '택': 5, '규': 5, '분': 5, '돔': 5, '던': 5, '만': 5, '엽': 5, '평': 5, '효': 5,
-        '훈': 5, '도': 5, '봄': 5, '다': 5, '둔': 5, '령': 5, '봉': 5, '탁': 5, '탄': 5,
-        '대': 5, '덕': 5, '보': 5, '단': 5, '득': 5, '련': 5, '운': 5, '편': 5, '섭': 5,
-        '복': 5, '필': 5, '담': 5, '듬': 5, '렴': 5, '엄': 5, '표': 5, '포': 5,
-        '돈': 5, '두': 5, '갑': 5, '당': 5, '딘': 5, '후': 5, '욱': 5, '팽': 5,
+      // 4번 (황제)
+      '석': 4, '로': 4, '학': 4, '슬': 4,
+      '라': 4, '종': 4, '루': 4, '일': 4,
+      '식': 4, '래': 4, '례': 4, '록': 4,
+      '소': 4, '리': 4, '말': 4, '란': 4,
+      '숙': 4, '근': 4, '솔': 4, '순': 4,
 
-        // 6번 (연인)
-        '정': 6,
+      // 5번 (교황)
+      '태': 5, '택': 5, '규': 5, '분': 5, '돔': 5, '던': 5, '만': 5, '엽': 5, '평': 5, '효': 5,
+      '훈': 5, '도': 5, '봄': 5, '다': 5, '둔': 5, '령': 5, '봉': 5, '탁': 5, '탄': 5,
+      '대': 5, '덕': 5, '보': 5, '단': 5, '득': 5, '련': 5, '운': 5, '편': 5, '섭': 5,
+      '복': 5, '필': 5, '담': 5, '듬': 5, '렴': 5, '엄': 5, '표': 5, '포': 5,
+      '돈': 5, '두': 5, '갑': 5, '당': 5, '딘': 5, '후': 5, '욱': 5, '팽': 5,
 
-        // 7번 (전차)
-        '최': 7, '동': 7, '차': 7,
-        '추': 7, '건': 7,
-        '채': 7, '화': 7, '좌': 7,
-        '찬': 7, '하': 7,
-        '준': 7,
+      // 6번 (연인)
+      '정': 6,
 
-        // 8번 (힘)
-        '박': 8, '가': 8, '람': 8, '혜': 8, '늘': 8, '호': 8, '해': 8, '예': 8, '중': 8, '궁': 8,
-        '룡': 8, '술': 8, '곽': 8, '계': 8, '옹': 8, '혁': 8,
-        '강': 8, '율': 8, '용': 8, '송': 8, '응': 8, '사': 8, '병': 8, '열': 8, '비': 8, '군': 8,
-        '바': 8, '야': 8, '육': 8, '방': 8, '빙': 8, '곡': 8,
-        '양': 8, '백': 8, '승': 8, '옥': 8, '을': 8, '상': 8, '오': 8, '흥': 8, '거': 8, '늠': 8,
-        '반': 8, '억': 8, '남궁': 8, '함': 8, '독고': 8, '렬': 8,
-        '권': 8, '형': 8, '영': 8, '범': 8, '고': 8, '배': 8, '랑': 8, '빛': 8, '결': 8, '항': 8,
-        '밤': 8, '부': 8, '감': 8, '궉': 8, '관': 8,
-        '익': 8, '구': 8, '애': 8, '광': 8, '국': 8, '웅': 8, '아': 8, '황': 8, '공': 8, '름': 8,
-        '산': 8, '왕': 8, '황보': 8, '사공': 8, '동방': 8,
+      // 7번 (전차)
+      '최': 7, '동': 7, '차': 7,
+      '추': 7, '건': 7,
+      '채': 7, '화': 7, '좌': 7,
+      '찬': 7, '하': 7,
+      '준': 7,
 
-        // 9번 (은둔자)
-        '순': 9, '정': 9, '이': 9, '서': 9, '선': 9, '여': 9, '녀': 9, '존': 9, '회': 9, '선우': 9,
-        '지': 9, '향': 9, '장': 9, '제': 9, '주': 9, '철': 9, '님': 9, '제갈': 9, '심': 9, '서문': 9,
-        '수': 9, '조': 9, '재': 9, '성': 9, '자': 9, '기': 9, '실': 9, '찰': 9, '어': 9, '요': 9,
-        '희': 9, '홍': 9, '유': 9, '우': 9, '언': 9, '귀': 9, '춘': 9, '설': 9,
-        '길': 9, '행': 9, '휴': 9, '시': 9, '헌': 9, '낭': 9, '잠': 9, '허': 9, '갈': 9,
+      // 8번 (힘)
+      '박': 8, '가': 8, '람': 8, '혜': 8, '늘': 8, '호': 8, '해': 8, '예': 8, '중': 8, '궁': 8,
+      '룡': 8, '술': 8, '곽': 8, '계': 8, '옹': 8, '혁': 8,
+      '강': 8, '율': 8, '용': 8, '송': 8, '응': 8, '사': 8, '병': 8, '열': 8, '비': 8, '군': 8,
+      '바': 8, '야': 8, '육': 8, '방': 8, '빙': 8, '곡': 8,
+      '양': 8, '백': 8, '승': 8, '옥': 8, '을': 8, '상': 8, '오': 8, '흥': 8, '거': 8, '늠': 8,
+      '반': 8, '억': 8, '남궁': 8, '함': 8, '독고': 8, '렬': 8,
+      '권': 8, '형': 8, '영': 8, '범': 8, '고': 8, '배': 8, '랑': 8, '빛': 8, '결': 8, '항': 8,
+      '밤': 8, '부': 8, '감': 8, '궉': 8, '관': 8,
+      '익': 8, '구': 8, '애': 8, '광': 8, '국': 8, '웅': 8, '아': 8, '황': 8, '공': 8, '름': 8,
+      '산': 8, '왕': 8, '황보': 8, '사공': 8, '동방': 8,
 
-        // 10번 (운명의 수레바퀴)
-        '안': 10, '연': 10, '환': 10,
-        '윤': 10, '인': 10, '란': 10,
-        '원': 10, '빈': 10, '론': 10,
-        '완': 10, '전': 10, '온': 10,
-        '린': 10, '한': 10, '손': 10,
+      // 9번 (은둔자)
+      '순': 9, '정': 9, '이': 9, '서': 9, '선': 9, '여': 9, '녀': 9, '존': 9, '회': 9, '선우': 9,
+      '지': 9, '향': 9, '장': 9, '제': 9, '주': 9, '철': 9, '님': 9, '제갈': 9, '심': 9, '서문': 9,
+      '수': 9, '조': 9, '재': 9, '성': 9, '자': 9, '기': 9, '실': 9, '찰': 9, '어': 9, '요': 9,
+      '희': 9, '홍': 9, '유': 9, '우': 9, '언': 9, '귀': 9, '춘': 9, '설': 9,
+      '길': 9, '행': 9, '휴': 9, '시': 9, '헌': 9, '낭': 9, '잠': 9, '허': 9, '갈': 9,
 
-        // 11번 (정의)
-        '현': 11, '진': 11, '경': 11, '극': 11, '신': 11, '청': 11, '피': 11, '염': 11,
-        '키': 11, '창': 11, '간': 11, '닷': 11, '심': 11, '척': 11, '타': 11, '음': 11,
-        '천': 11, '세': 11, '감': 11, '본': 11, '션': 11, '첨': 11, '탐': 11, '품': 11,
-        '위': 11, '균': 11, '견': 11, '벼': 11, '숀': 11, '초': 11, '파': 11, '총': 11,
-        '의': 11, '검': 11, '곤': 11, '변': 11, '직': 11, '카': 11, '판': 11, '휘': 11
-      };
+      // 10번 (운명의 수레바퀴)
+      '안': 10, '연': 10, '환': 10,
+      '윤': 10, '인': 10, '란': 10,
+      '원': 10, '빈': 10, '론': 10,
+      '완': 10, '전': 10, '온': 10,
+      '린': 10, '한': 10, '손': 10,
 
-      // 숫자별 성향 데이터
-      const numberCharacteristics = {
-        2: {
-          basic: "신중하고 진지한 성향",
-          love: "깊이 있는 관계를 추구하며 결혼에는 강하나 연애에는 약한 스타일",
-          style: "한번 시작한 관계는 끝까지 책임지려 하며, 매우 신중하게 접근하는 편입니다.",
-          advice: [
-            "너무 신중한 태도는 기회를 놓칠 수 있어요",
-            "감정 표현을 조금 더 자주 해보세요",
-            "즉흥적인 데이트도 가끔은 좋아요"
-          ],
-          health: "하체쪽 질환(자궁, 방광, 무릎, 관절)에 주의가 필요합니다.",
-          compatibility: "5번, 8번과 좋은 궁합을 이룹니다."
-        },
-        3: {
-          basic: "매력적이고 풍요로운 성향",
-          love: "자연스러운 관계를 선호하며, 상대방의 자유를 존중하는 스타일",
-          style: "오는 사람을 막지 않고 가는 사람을 잡지 않는 자유로운 연애를 추구합니다.",
-          advice: [
-            "관심 있는 상대에겐 적극적인 표현이 필요해요",
-            "때로는 약간의 집착도 사랑의 표현이 될 수 있어요",
-            "상대방의 마음을 더 깊이 이해하려 노력해보세요"
-          ],
-          health: "목, 유방, 자궁 건강에 신경 쓰세요.",
-          compatibility: "6번, 9번과 좋은 궁합을 이룹니다."
-        },
-        4: {
-          basic: "자수성가형의 리더십 성향",
-          love: "책임감 있고 진중한 연애를 추구하는 스타일",
-          style: "한 번 시작한 관계에 매우 충실하며, 리드하는 것을 선호합니다.",
-          advice: [
-            "지나친 책임감은 부담이 될 수 있어요",
-            "상대방의 의견도 존중해주세요",
-            "때로는 부드러운 모습을 보여주세요"
-          ],
-          health: "족적근막염, 다리 질환, 심장 관련 질환에 주의하세요.",
-          compatibility: "3번, 7번과 좋은 궁합을 이룹니다."
-        },
-        5: {
-          basic: "지혜롭고 조언자적인 성향",
-          love: "신중하고 분석적인 연애 스타일",
-          style: "깊이 있는 대화를 중요시하며, 정신적 교감을 추구합니다.",
-          advice: [
-            "실천력을 높이는 것이 중요해요",
-            "약속은 꼭 지키도록 하세요",
-            "감정적 표현도 중요합니다"
-          ],
-          health: "목 안쪽 질병(기관지, 갑상선), 소화장애에 주의하세요.",
-          compatibility: "2번, 7번과 좋은 궁합을 이룹니다."
-        },
-        6: {
-          basic: "낭만적이고 감성적인 성향",
-          love: "로맨틱하고 감성적인 연애를 추구하는 스타일",
-          style: "힐링을 주는 연애를 선호하며, 감정 교류를 중요시합니다.",
-          advice: [
-            "현실적인 면도 고려하세요",
-            "지나친 감정 소비를 조심하세요",
-            "균형 잡힌 관계를 유지하세요"
-          ],
-          health: "장 건강, 하체 혈액순환에 주의가 필요합니다.",
-          compatibility: "3번, 9번과 좋은 궁합을 이룹니다."
-        },
-        7: {
-          basic: "독립적이고 진취적인 성향",
-          love: "자유롭고 활동적인 연애를 추구하는 스타일",
-          style: "열정적이고 적극적이며, 고집이 있는 편입니다.",
-          advice: [
-            "상대방의 자유도 존중해주세요",
-            "지나친 고집은 삼가주세요",
-            "감정 조절에 신경 써주세요"
-          ],
-          health: "하체 질환(자궁, 생식기, 발목)에 주의하세요.",
-          compatibility: "4번, 10번과 좋은 궁합을 이룹니다."
-        },
-        8: {
-          basic: "안정적이고 신중한 성향",
-          love: "믿음직하고 성실한 연애를 추구하는 스타일",
-          style: "느리지만 확실한 사랑을 추구하며, 신뢰를 중요시합니다.",
-          advice: [
-            "너무 느린 템포는 상대방을 지치게 할 수 있어요",
-            "적극적인 표현도 필요해요",
-            "때로는 즉흥적인 모습도 보여주세요"
-          ],
-          health: "치아, 입속 질환, 두통, 소화장애에 주의하세요.",
-          compatibility: "2번, 11번과 좋은 궁합을 이룹니다."
-        },
-        9: {
-          basic: "지적이고 독립적인 성향",
-          love: "깊이 있는 사랑을 추구하는 스타일",
-          style: "집중적인 사랑을 하며, 결과에 집착하는 경향이 있습니다.",
-          advice: [
-            "혼자만의 시간도 필요하지만 소통도 중요해요",
-            "지나친 집착은 피하세요",
-            "유연한 마음가짐을 가져보세요"
-          ],
-          health: "노인성 질환(눈, 귀, 관절 등)에 주의하세요.",
-          compatibility: "3번, 6번과 좋은 궁합을 이룹니다."
-        },
-        10: {
-          basic: "감성적이고 변화무쌍한 성향",
-          love: "감정의 기복이 있는 연애 스타일",
-          style: "열정적이지만 변화가 많은 사랑을 합니다.",
-          advice: [
-            "감정 기복 조절이 필요해요",
-            "안정적인 관계 유지를 위해 노력하세요",
-            "장기적인 관점을 가져보세요"
-          ],
-          health: "혈액 순환 장애, 순환기 질환에 주의하세요.",
-          compatibility: "7번, 11번과 좋은 궁합을 이룹니다."
-        },
-        11: {
-          basic: "정의롭고 균형 잡힌 성향",
-          love: "공평하고 이성적인 연애를 추구하는 스타일",
-          style: "give and take를 중요시하며, 평등한 관계를 추구합니다.",
-          advice: [
-            "때로는 이성적인 판단보다 감정적 교감이 필요해요",
-            "완벽을 추구하지 마세요",
-            "융통성 있는 태도를 가져보세요"
-          ],
-          health: "치아 질환, 예상치 못한 건강 이슈에 주의하세요.",
-          compatibility: "8번, 10번과 좋은 궁합을 이룹니다."
-        }
-      };
+      // 11번 (정의)
+      '현': 11, '진': 11, '경': 11, '극': 11, '신': 11, '청': 11, '피': 11, '염': 11,
+      '키': 11, '창': 11, '간': 11, '닷': 11, '심': 11, '척': 11, '타': 11, '음': 11,
+      '천': 11, '세': 11, '감': 11, '본': 11, '션': 11, '첨': 11, '탐': 11, '품': 11,
+      '위': 11, '균': 11, '견': 11, '벼': 11, '숀': 11, '초': 11, '파': 11, '총': 11,
+      '의': 11, '검': 11, '곤': 11, '변': 11, '직': 11, '카': 11, '판': 11, '휘': 11
+    };
 
-      function analyzeLoveFortune() {
-        const name = document.getElementById('userName').value.trim();
-        if (!name) {
-          alert('이름을 입력해주세요!');
-          return;
-        }
-
-        // 입력한 이름으로부터 숫자 추출
-        let numbers = [];
-        for (let char of name) {
-          if (nameToNumber[char] !== undefined) {
-            numbers.push(nameToNumber[char]);
-          }
-        }
-
-        if (numbers.length === 0) {
-          alert('분석할 수 없는 이름입니다.');
-          return;
-        }
-
-        // 여기서는 "첫 글자" 기준으로 메인 숫자를 사용
-        const mainNumber = numbers[0];
-        const analysis = numberCharacteristics[mainNumber];
-
-        if (!analysis) {
-          alert('분석할 수 없는 이름입니다.');
-          return;
-        }
-
-        // 점수는 따로 저장되어 있지 않으므로 임의로 70~100 사이에서 랜덤 생성
-        const randomScore = Math.floor(Math.random() * 31) + 70;
-
-        // 결과창 노출
-        document.getElementById('result').style.display = 'block';
-
-        // 연애 스타일(간단 예시)
-        document.getElementById('analysis').innerHTML = `
-            <h3>${name}님의 연애 스타일</h3>
-            <p><strong>[기본 성향]</strong> ${analysis.basic}</p>
-            <p><strong>[애정 성향]</strong> ${analysis.love}</p>
-            <p><strong>[연애 스타일]</strong> <span class="highlight">${analysis.style}</span></p>
-            <p><strong>[건강 주의]</strong> ${analysis.health}</p>
-            <p><strong>[궁합]</strong> ${analysis.compatibility}</p>
-        `;
-
-        // 애정운 점수 표시
-        document.getElementById('score').textContent = randomScore;
-
-        // 연애 조언
-        document.getElementById('advice').innerHTML = `
-            <h3>💝 연애 조언</h3>
-            <ul>
-                ${analysis.advice.map(item => `<li>${item}</li>`).join('')}
-            </ul>
-        `;
+    // 숫자별 성향 데이터
+    // => 각 번호별로 'loveScore'를 정해 '항상 동일'하게 표시하도록 함
+    const numberCharacteristics = {
+      2: {
+        loveScore: 82,
+        basic: "신중하고 진지한 성향",
+        love: "깊이 있는 관계를 추구하며 결혼에는 강하나 연애에는 약한 스타일",
+        style: "한번 시작한 관계는 끝까지 책임지려 하며, 매우 신중하게 접근하는 편입니다.",
+        advice: [
+          "너무 신중한 태도는 기회를 놓칠 수 있어요",
+          "감정 표현을 조금 더 자주 해보세요",
+          "즉흥적인 데이트도 가끔은 좋아요"
+        ],
+        health: "하체쪽 질환(자궁, 방광, 무릎, 관절)에 주의가 필요합니다.",
+        compatibility: "5번, 8번과 좋은 궁합을 이룹니다.",
+        additional: "책임감이 크고, 계획적으로 인생을 살아가는 편입니다."
+      },
+      3: {
+        loveScore: 85,
+        basic: "매력적이고 풍요로운 성향",
+        love: "자연스러운 관계를 선호하며, 상대방의 자유를 존중하는 스타일",
+        style: "오는 사람을 막지 않고 가는 사람을 잡지 않는 자유로운 연애를 추구합니다.",
+        advice: [
+          "관심 있는 상대에겐 적극적인 표현이 필요해요",
+          "때로는 약간의 집착도 사랑의 표현이 될 수 있어요",
+          "상대방의 마음을 더 깊이 이해하려 노력해보세요"
+        ],
+        health: "목, 유방, 자궁 건강에 신경 쓰세요.",
+        compatibility: "6번, 9번과 좋은 궁합을 이룹니다.",
+        additional: "창의적이며 예술적 감각이 뛰어나 주위에 긍정적 에너지를 줍니다."
+      },
+      4: {
+        loveScore: 87,
+        basic: "자수성가형의 리더십 성향",
+        love: "책임감 있고 진중한 연애를 추구하는 스타일",
+        style: "한 번 시작한 관계에 매우 충실하며, 리드하는 것을 선호합니다.",
+        advice: [
+          "지나친 책임감은 부담이 될 수 있어요",
+          "상대방의 의견도 존중해주세요",
+          "때로는 부드러운 모습을 보여주세요"
+        ],
+        health: "족적근막염, 다리 질환, 심장 관련 질환에 주의하세요.",
+        compatibility: "3번, 7번과 좋은 궁합을 이룹니다.",
+        additional: "주변 사람들에게 힘이 되어주지만, 본인 스트레스 관리는 꼭 필요합니다."
+      },
+      5: {
+        loveScore: 83,
+        basic: "지혜롭고 조언자적인 성향",
+        love: "신중하고 분석적인 연애 스타일",
+        style: "깊이 있는 대화를 중요시하며, 정신적 교감을 추구합니다.",
+        advice: [
+          "실천력을 높이는 것이 중요해요",
+          "약속은 꼭 지키도록 하세요",
+          "감정적 표현도 중요합니다"
+        ],
+        health: "목 안쪽 질병(기관지, 갑상선), 소화장애에 주의하세요.",
+        compatibility: "2번, 7번과 좋은 궁합을 이룹니다.",
+        additional: "사람들의 고민을 잘 들어주며, 탁월한 문제 해결 능력을 갖고 있습니다."
+      },
+      6: {
+        loveScore: 89,
+        basic: "낭만적이고 감성적인 성향",
+        love: "로맨틱하고 감성적인 연애를 추구하는 스타일",
+        style: "힐링을 주는 연애를 선호하며, 감정 교류를 중요시합니다.",
+        advice: [
+          "현실적인 면도 고려하세요",
+          "지나친 감정 소비를 조심하세요",
+          "균형 잡힌 관계를 유지하세요"
+        ],
+        health: "장 건강, 하체 혈액순환에 주의가 필요합니다.",
+        compatibility: "3번, 9번과 좋은 궁합을 이룹니다.",
+        additional: "감수성이 풍부해 예술적 분야에서 재능을 발휘하기도 합니다."
+      },
+      7: {
+        loveScore: 84,
+        basic: "독립적이고 진취적인 성향",
+        love: "자유롭고 활동적인 연애를 추구하는 스타일",
+        style: "열정적이고 적극적이며, 고집이 있는 편입니다.",
+        advice: [
+          "상대방의 자유도 존중해주세요",
+          "지나친 고집은 삼가주세요",
+          "감정 조절에 신경 써주세요"
+        ],
+        health: "하체 질환(자궁, 생식기, 발목)에 주의하세요.",
+        compatibility: "4번, 10번과 좋은 궁합을 이룹니다.",
+        additional: "새로운 것을 끊임없이 탐색하며, 모험심이 강해 다양한 경험을 쌓습니다."
+      },
+      8: {
+        loveScore: 81,
+        basic: "안정적이고 신중한 성향",
+        love: "믿음직하고 성실한 연애를 추구하는 스타일",
+        style: "느리지만 확실한 사랑을 추구하며, 신뢰를 중요시합니다.",
+        advice: [
+          "너무 느린 템포는 상대방을 지치게 할 수 있어요",
+          "적극적인 표현도 필요해요",
+          "때로는 즉흥적인 모습도 보여주세요"
+        ],
+        health: "치아, 입속 질환, 두통, 소화장애에 주의하세요.",
+        compatibility: "2번, 11번과 좋은 궁합을 이룹니다.",
+        additional: "재물운이 좋은 편이며, 재테크나 투자에도 관심이 많습니다."
+      },
+      9: {
+        loveScore: 90,
+        basic: "지적이고 독립적인 성향",
+        love: "깊이 있는 사랑을 추구하는 스타일",
+        style: "집중적인 사랑을 하며, 결과에 집착하는 경향이 있습니다.",
+        advice: [
+          "혼자만의 시간도 필요하지만 소통도 중요해요",
+          "지나친 집착은 피하세요",
+          "유연한 마음가짐을 가져보세요"
+        ],
+        health: "노인성 질환(눈, 귀, 관절 등)에 주의하세요.",
+        compatibility: "3번, 6번과 좋은 궁합을 이룹니다.",
+        additional: "통찰력과 직관력이 뛰어나며, 탐구심이 강해 연구직에도 적합합니다."
+      },
+      10: {
+        loveScore: 88,
+        basic: "감성적이고 변화무쌍한 성향",
+        love: "감정의 기복이 있는 연애 스타일",
+        style: "열정적이지만 변화가 많은 사랑을 합니다.",
+        advice: [
+          "감정 기복 조절이 필요해요",
+          "안정적인 관계 유지를 위해 노력하세요",
+          "장기적인 관점을 가져보세요"
+        ],
+        health: "혈액 순환 장애, 순환기 질환에 주의하세요.",
+        compatibility: "7번, 11번과 좋은 궁합을 이룹니다.",
+        additional: "온화하다가도 결정적 순간에 강인한 추진력을 발휘하는 매력이 있습니다."
+      },
+      11: {
+        loveScore: 86,
+        basic: "정의롭고 균형 잡힌 성향",
+        love: "공평하고 이성적인 연애를 추구하는 스타일",
+        style: "give and take를 중요시하며, 평등한 관계를 추구합니다.",
+        advice: [
+          "때로는 이성적인 판단보다 감정적 교감이 필요해요",
+          "완벽을 추구하지 마세요",
+          "융통성 있는 태도를 가져보세요"
+        ],
+        health: "치아 질환, 예상치 못한 건강 이슈에 주의하세요.",
+        compatibility: "8번, 10번과 좋은 궁합을 이룹니다.",
+        additional: "정의감이 높고 타인에게 공정하려 하지만, 스스로를 너무 혹독하게 대하지 마세요."
       }
-    </script>
+    };
+
+    // 궁합 점수를 계산하는 함수 (두 번호 차이를 이용한 간단 공식)
+    // 예) difference=0 => 100점, difference=1 => 95점, difference=2 => 90점, ...
+    //    최솟값은 50점으로 고정
+    function calculateCompatibility(num1, num2) {
+      const diff = Math.abs(num1 - num2);
+      let score = 100 - (diff * 5);
+      if (score < 50) score = 50;
+      return score;
+    }
+
+    function analyzeLoveFortune() {
+      const name1 = document.getElementById('userName1').value.trim();
+      const name2 = document.getElementById('userName2').value.trim();
+
+      if (!name1 || !name2) {
+        alert('두 사람의 이름을 모두 입력해주세요!');
+        return;
+      }
+
+      // 1. 첫 번째 사람 분석
+      const numArr1 = [];
+      for (let ch of name1) {
+        if (nameToNumber[ch] !== undefined) {
+          numArr1.push(nameToNumber[ch]);
+        }
+      }
+      if (numArr1.length === 0) {
+        alert(`[${name1}]은(는) 분석할 수 없는 이름입니다.`);
+        return;
+      }
+      const mainNumber1 = numArr1[0]; // 첫 글자 기준
+      const info1 = numberCharacteristics[mainNumber1];
+      if (!info1) {
+        alert(`[${name1}]은(는) 분석할 수 없는 이름입니다.`);
+        return;
+      }
+
+      // 2. 두 번째 사람 분석
+      const numArr2 = [];
+      for (let ch of name2) {
+        if (nameToNumber[ch] !== undefined) {
+          numArr2.push(nameToNumber[ch]);
+        }
+      }
+      if (numArr2.length === 0) {
+        alert(`[${name2}]은(는) 분석할 수 없는 이름입니다.`);
+        return;
+      }
+      const mainNumber2 = numArr2[0]; // 첫 글자 기준
+      const info2 = numberCharacteristics[mainNumber2];
+      if (!info2) {
+        alert(`[${name2}]은(는) 분석할 수 없는 이름입니다.`);
+        return;
+      }
+
+      // 3. 궁합 점수 계산
+      const compatibility = calculateCompatibility(mainNumber1, mainNumber2);
+
+      // 결과 노출
+      document.getElementById('result').style.display = 'block';
+
+      // 첫 번째 사람 결과 HTML 생성
+      document.getElementById('analysis1').innerHTML = `
+        <h2>${name1} 님</h2>
+        <p><strong>수비학 번호:</strong> <span class="highlight">${mainNumber1}번</span></p>
+        <p><strong>애정운 점수:</strong> <span class="highlight">${info1.loveScore}점</span></p>
+        <hr />
+        <p><strong>[기본 성향]</strong> ${info1.basic}</p>
+        <p><strong>[애정 성향]</strong> ${info1.love}</p>
+        <p><strong>[연애 스타일]</strong> ${info1.style}</p>
+        <p><strong>[건강 주의]</strong> ${info1.health}</p>
+        <p><strong>[궁합]</strong> ${info1.compatibility}</p>
+        <p><strong>[추가 정보]</strong> ${info1.additional}</p>
+        <p><strong>연애 조언</strong></p>
+        <ul>
+          ${info1.advice.map(a => `<li>${a}</li>`).join('')}
+        </ul>
+      `;
+
+      // 두 번째 사람 결과 HTML 생성
+      document.getElementById('analysis2').innerHTML = `
+        <h2>${name2} 님</h2>
+        <p><strong>수비학 번호:</strong> <span class="highlight">${mainNumber2}번</span></p>
+        <p><strong>애정운 점수:</strong> <span class="highlight">${info2.loveScore}점</span></p>
+        <hr />
+        <p><strong>[기본 성향]</strong> ${info2.basic}</p>
+        <p><strong>[애정 성향]</strong> ${info2.love}</p>
+        <p><strong>[연애 스타일]</strong> ${info2.style}</p>
+        <p><strong>[건강 주의]</strong> ${info2.health}</p>
+        <p><strong>[궁합]</strong> ${info2.compatibility}</p>
+        <p><strong>[추가 정보]</strong> ${info2.additional}</p>
+        <p><strong>연애 조언</strong></p>
+        <ul>
+          ${info2.advice.map(a => `<li>${a}</li>`).join('')}
+        </ul>
+      `;
+
+      // 궁합 점수 표시
+      document.getElementById('compatibilityScore').textContent = compatibility;
+    }
+  </script>
 </body>
 </html>
